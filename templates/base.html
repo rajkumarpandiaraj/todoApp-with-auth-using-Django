@@ -9,9 +9,22 @@
     <title>TodoApp</title>
 </head>
 <body>
-    <header>
-        <h1>Todo list</h1>
-    </header>
+    <div class="nav">
+        <h1 class="brand">Todos</h1>
+        <ul class="nav-list">
+        {% if user.is_authenticated %}
+            <li>
+                <form action={% url 'logout' %} method='POST'>
+                {% csrf_token %}
+                    <input id='nav-btn' type='submit' value="Logout"/>
+                </form>
+            </li>
+        {% else %}
+        <li><a id="nav-a" href="{% url 'login' %}">Login</a></li>
+        <li><a id="nav-a" href="{% url 'signup' %}">Sign Up</a></li>
+        {% endif %}
+        </ul>
+    </div>
     {% block content %}
     {% endblock %}
 </body>
