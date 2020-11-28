@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.title}}
+        <button class="todo-button" id="todo-btn" type="submit">
+            <i class="fas fa-plus-square"></i>
+        </button>
+    </form>
+    <div class="todo-container">
+        <ul id="todo-list">
+    {% for task in taskItems %}
+            <div class="todo">
+                {% if not task.completed %}
+                    <li class="todo-item">
+                        {{task.title}}
+                    </li>
+                {% else %}
+                    <li class="checked">
+                        {{task.title}}
+                    </li>
+                {% endif %}
+                    <a href="{% url 'update_task' task.id %}" class = 'complete-btn'>
+                        <i class="fas fa-check"></i>
+                    </a>
+                    <a href="{% url 'del_task' task.id %}" class = 'trash-btn' >
+                        <i class="fas fa-trash"></i>
+                    </a>
+                
+            </div>
+    {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
